@@ -22,7 +22,7 @@ import {
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
-// Fix default marker icon in React-Leaflet
+
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: markerIcon2x,
@@ -30,7 +30,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: markerShadow,
 });
 
-// Create red marker icon
+// Creating red marker icon
 const redIcon = new L.Icon({
   iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
   shadowUrl: markerShadow,
@@ -40,7 +40,7 @@ const redIcon = new L.Icon({
   shadowSize: [41, 41]
 });
 
-// Create green marker icon for visited places
+// Creating green marker icon for visited places
 const greenIcon = new L.Icon({
   iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
   shadowUrl: markerShadow,
@@ -148,12 +148,12 @@ function SortableItem({ id, place, index, visited, toggleVisited, weather, handl
   );
 }
 
-// Component to fix map rendering issues
+
 function MapRefresher() {
   const map = useMap();
   
   useEffect(() => {
-    // Invalidate size after a short delay to ensure proper rendering
+ 
     const timer = setTimeout(() => {
       map.invalidateSize();
     }, 100);
@@ -192,7 +192,7 @@ export default function App() {
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [searchResults, setSearchResults] = useState(null);
 
-  // Save to localStorage
+
   useEffect(() => {
     localStorage.setItem("places", JSON.stringify(places));
     localStorage.setItem("coords", JSON.stringify(coords));
@@ -200,10 +200,10 @@ export default function App() {
     localStorage.setItem("weather", JSON.stringify(weather));
   }, [places, coords, visited, weather]);
 
-  // Fetch weather data for a location
+  // Get weather data for a location
   const fetchWeather = async (lat, lng) => {
     try {
-      // Using Open-Meteo API (free, no API key required)
+      // Using Open-Meteo API 
       const response = await fetch(
         `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current_weather=true&temperature_unit=celsius`
       );
@@ -257,7 +257,7 @@ export default function App() {
     if (input.trim() === "") return;
 
     try {
-      // Fetch coordinates from OpenStreetMap Nominatim API
+      // getting coordinates from OpenStreetMap Nominatim API
       const response = await fetch(
         `https://nominatim.openstreetmap.org/search?format=json&q=${input}&limit=5`
       );
@@ -289,7 +289,7 @@ export default function App() {
     // Fetch weather data
     const weatherData = await fetchWeather(lat, lng);
 
-    // Use exactly what the user typed (in English)
+    // Use exactly what the user typed
     setPlaces([...places, input]);
     setCoords([...coords, { lat, lng }]);
     setVisited([...visited, false]);
